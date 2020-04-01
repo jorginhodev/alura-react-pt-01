@@ -1,25 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import Header from "./components/Header";
+import Table from "./components/Table";
+import Form from "./components/Form";
 
 function App() {
+  const [authors, setAuthors] = useState([
+    {
+      id: 1,
+      name: "Paulo",
+      book: "React",
+      price: 1000
+    },
+    {
+      id: 2,
+      name: "Daniel",
+      book: "Java",
+      price: 99
+    },
+    {
+      id: 3,
+      name: "Marcos",
+      book: "Design",
+      price: 150
+    },
+    {
+      id: 4,
+      name: "Bruno",
+      book: "DevOps",
+      price: 100
+    }
+  ]);
+
+  function removeAuthor(id) {
+    setAuthors(authors.filter(author => author.id !== id));
+  }
+
+  function addAuthor(author) {
+    setAuthors([...authors, author]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Table authors={authors} removeAuthor={removeAuthor} />
+      <Form addAuthor={addAuthor} />
+    </>
   );
 }
 
